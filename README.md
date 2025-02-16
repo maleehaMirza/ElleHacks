@@ -14,6 +14,11 @@ OpenCV: pip install opencv-python
 
 Cvzone (HandTrackingModule): pip install cvzone
 
+## Develop
+
+1. Cd into python folder
+2. Run the following command: python -m streamlit run app.py
+
 ## Details
 
 ### Overview: 
