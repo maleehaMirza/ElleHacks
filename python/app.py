@@ -9,7 +9,7 @@ from openai import OpenAI
 st.set_page_config(layout="wide")
 
 
-def load_css(file_path="style.css"):
+def load_css(file_path="python/style.css"):
     with open(file_path, "r") as css_file:
         css_content = css_file.read()
         st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
