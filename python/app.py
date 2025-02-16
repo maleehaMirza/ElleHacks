@@ -143,7 +143,7 @@ elif tabs == "AI Chatbot 🤖":
 
 # Quiz Page
 elif tabs == "Cyber Quiz 📝":
-    exec(open("quiz.py").read())
+    exec(open("python/quiz.py").read())
 
 elif tabs == "Cyber Facts 🤔":
     exec(open("python/fact.py").read())
