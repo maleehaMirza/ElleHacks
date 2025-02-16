@@ -1,0 +1,13 @@
+[theme]
+# Primary and background colors
+primaryColor = "#FF8DA1"  # Nice green color
+backgroundColor="#1a083d"  # Lighter green background
+secondaryBackgroundColor = "#7873f5"  # Light secondary background color
+textColor = "#fffff"  # Dark green text
+
+# Sidebar colors
+sidebar.backgroundColor = "#ffffff"  # White background for sidebar
+sidebar.textColor = "#2e7d32"  # Dark green text in sidebar
+
+# Main layout
+# font="monospace"  # Clean, readable font

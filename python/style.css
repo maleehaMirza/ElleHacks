@@ -1,0 +1,129 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+html,
+body {
+    background-color: #ededed;
+    /* Light pink background */
+    font-family: sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    color: #091747;
+}
+
+/* Title styling */
+.heading {
+    color: #ff1493;
+    /* Pink title */
+    font-size: 115px;
+    /* Bigger font size */
+    text-align: center;
+    /* Center the title */
+    font-weight: bold;
+    text-transform: uppercase;
+    background: linear-gradient(to right, #ff6ec4, #7873f5);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    padding: -20px;
+}
+
+.stImage img {
+    margin-left: -5px;
+    /* Adjust this value to move the logo to the left */
+}
+
+.heading2 {
+
+    /* Pink title */
+    font-size: 70px;
+    /* Bigger font size */
+    text-align: center;
+    /* Center the title */
+    font-weight: bold;
+    text-transform: uppercase;
+    padding: -20px;
+}
+
+/* Button styling */
+.stButton button {
+    background-color: #61bbfc;
+    /* White button */
+    color: #f6f6f6;
+    /* Tomato red text */
+    border-radius: 10px;
+    padding: 10px 15px;
+}
+
+.stButton button:hover {
+    background-color: #4a9ee0;
+    /* Darker blue on hover */
+    color: #ffffff;
+    /* Keep the white text */
+    transform: scale(1.05);
+    /* Slightly enlarge the button */
+}
+
+.stButton button:active {
+    background-color: #3878c3;
+    /* Even darker blue on click */
+    color: #e0e0e0;
+    /* Slightly lighter text on click */
+    transform: scale(0.98);
+    /* Shrink the button slightly on click */
+}
+
+.ai-heading {
+    color: #ff6ec4;
+}
+
+.quiz-heading {
+    color: #b96eff;
+}
+
+.fact-heading {
+    color: #61bbfc;
+}
+
+.big-text {
+    font-size: 35px;
+    font-family: sans-serif;
+}
+
+.small-text {
+    font-size: 30px;
+    font-family: sans-serif;
+}
+
+.smaller-text {
+    font-size: 20px;
+    font-family: sans-serif;
+}
+
+/* Chat messages */
+.chat-message {
+    background-color: #ffffff;
+    /* White background for chat messages */
+    padding: 10px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+[data-testid="stSidebarNav"] {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+/* Center the labels (radio button text) */
+[data-testid="stSidebarNav"] label {
+    text-align: center;
+}
+
+[data-testid="stSidebar"] h2 {
+    font-size: 30px !important;
+    font-weight: bold;
+}
+
+/* Make sidebar menu items bigger */
+[data-testid="stSidebar"] div {
+    font-size: 30px !important;
+}
