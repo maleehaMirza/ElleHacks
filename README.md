@@ -14,6 +14,13 @@ OpenCV: pip install opencv-python
 
 Cvzone (HandTrackingModule): pip install cvzone
 
+Mediapipe: pip install mediapipe
+
+## Develop
+
+1. Cd into python folder
+2. Run the following command: python -m streamlit run app.py
+
 ## Details
 
 ### Overview: 
