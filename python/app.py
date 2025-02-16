@@ -1,7 +1,8 @@
 import json
 import streamlit as st
-from openai import OpenAI
 import openai
+from openai import OpenAI
+
 
 # Function to load custom CSS
 
