@@ -55,4 +55,3 @@ watchdog==6.0.0
 opencv-python
 opencv-python-headless
 cvzone
-mediapipe==0.9.1
