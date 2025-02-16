@@ -14,6 +14,8 @@ OpenCV: pip install opencv-python
 
 Cvzone (HandTrackingModule): pip install cvzone
 
+Mediapipe: pip install mediapipe
+
 ## Develop
 
 1. Cd into python folder
