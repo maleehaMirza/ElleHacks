@@ -32,7 +32,7 @@ if tabs == "Home":
     st.markdown('<div id="section1" class="section">', unsafe_allow_html=True)
     st.markdown('<div class="section-content">', unsafe_allow_html=True)
     st.write('<span class="big-text">  </span>', unsafe_allow_html=True)
-    logo_path = "logo.png"  # Ensure this file is in the same directory as your script
+    logo_path = "python/logo.png"  # Ensure this file is in the same directory as your script
 
     # Use columns to align the image and text
     col1, col2 = st.columns([3.2, 1])  # Adjust the ratio as needed
