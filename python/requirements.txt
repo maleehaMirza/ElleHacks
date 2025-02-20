@@ -23,7 +23,7 @@ markdown-it-py==3.0.0
 MarkupSafe==3.0.2
 mdurl==0.1.2
 narwhals==1.26.0
-numpy==2.2.3
+numpy==1.26.4
 openai==1.63.0
 packaging==24.2
 pandas==2.2.3
@@ -52,6 +52,7 @@ typing_extensions==4.12.2
 tzdata==2025.1
 urllib3==2.3.0
 watchdog==6.0.0
+mediapipe==0.10.21
 opencv-python
 opencv-python-headless
 cvzone
