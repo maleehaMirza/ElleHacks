@@ -9,7 +9,7 @@ from openai import OpenAI
 st.set_page_config(layout="wide")
 
 
-def load_css(file_path="style.css"):
+def load_css(file_path="python/style.css"):
     with open(file_path, "r") as css_file:
         css_content = css_file.read()
         st.markdown(f"<style>{css_content}</style>", unsafe_allow_html=True)
@@ -32,7 +32,7 @@ if tabs == "Home":
     st.markdown('<div id="section1" class="section">', unsafe_allow_html=True)
     st.markdown('<div class="section-content">', unsafe_allow_html=True)
     st.write('<span class="big-text">  </span>', unsafe_allow_html=True)
-    logo_path = "logo.png"  # Ensure this file is in the same directory as your script
+    logo_path = "python/logo.png"  # Ensure this file is in the same directory as your script
 
     # Use columns to align the image and text
     col1, col2 = st.columns([3.2, 1])  # Adjust the ratio as needed
@@ -143,7 +143,7 @@ elif tabs == "AI Chatbot 🤖":
 
 # Quiz Page
 elif tabs == "Cyber Quiz 📝":
-    exec(open("quiz.py").read())
+    exec(open("python/quiz.py").read())
 
 elif tabs == "Cyber Facts 🤔":
-    exec(open("fact.py").read())
+    exec(open("python/fact.py").read())
