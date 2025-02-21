@@ -1,21 +1,26 @@
 import cv2
 import csv
-import av
-import time
-import streamlit as st
 from cvzone.HandTrackingModule import HandDetector
 import cvzone
-from streamlit_webrtc import webrtc_streamer
+import time
+import streamlit as st
 
-# Streamlit UI
+# Setup Streamlit and webcam
 st.write('<span class="heading2 quiz-heading">Cyber Quiz 📝</span>',
          unsafe_allow_html=True)
 st.write('<span class="smaller-text">Ready to ace your cybersecurity knowledge? Answer questions with your hands in our interactive, hand-detecting quiz!</span>', unsafe_allow_html=True)
+
+# Setup video capture
+cap = cv2.VideoCapture(0)
+cap.set(3, 1280)
+cap.set(4, 720)
 
 # Initialize the hand detector
 detector = HandDetector(detectionCon=0.8)
 
 # Define MCQ class
+
+
 class MCQ:
     def __init__(self, data):
         self.question = data[0]
@@ -33,7 +38,8 @@ class MCQ:
                 self.userAns = x + 1
                 cv2.rectangle(img, (x1, y1), (x2, y2), (0, 255, 0), cv2.FILLED)
 
-# Load MCQs from CSV
+
+# Import CSV file data for MCQs
 pathCSV = "Mcqs.csv"
 with open(pathCSV, newline='\n') as f:
     reader = csv.reader(f)
@@ -41,31 +47,46 @@ with open(pathCSV, newline='\n') as f:
 
 # Create MCQ objects
 mcqList = [MCQ(q) for q in dataAll]
+
 qNo = 0
 qTotal = len(dataAll)
 
-# Define a callback function to process video frames
-def video_frame_callback(frame):
-    global qNo
+# Setup a Streamlit placeholder for webcam feed
+frame_placeholder = st.empty()
 
-    img = frame.to_ndarray(format="bgr24")  # Convert frame to BGR
-    img = cv2.flip(img, 1)  # Flip horizontally
+stop_button_pressed = st.button("Stop Quiz")
+
+# Main loop
+while cap.isOpened() and not stop_button_pressed:
+    success, img = cap.read()
+    if not success:
+        st.write("Failed to grab frame!")
+        break
+
+    img = cv2.flip(img, 1)
     hands, img = detector.findHands(img, flipType=False)
 
     # Display the MCQ quiz questions and choices
     if qNo < qTotal:
         mcq = mcqList[qNo]
 
-        img, bbox = cvzone.putTextRect(img, mcq.question, [100, 100], 2, 2, offset=50, border=5)
-        img, bbox1 = cvzone.putTextRect(img, mcq.choice1, [100, 250], 2, 2, offset=50, border=5)
-        img, bbox2 = cvzone.putTextRect(img, mcq.choice2, [400, 250], 2, 2, offset=50, border=5)
-        img, bbox3 = cvzone.putTextRect(img, mcq.choice3, [100, 400], 2, 2, offset=50, border=5)
-        img, bbox4 = cvzone.putTextRect(img, mcq.choice4, [400, 400], 2, 2, offset=50, border=5)
+        img, bbox = cvzone.putTextRect(
+            img, mcq.question, [100, 100], 2, 2, offset=50, border=5)
+        img, bbox1 = cvzone.putTextRect(
+            img, mcq.choice1, [100, 250], 2, 2, offset=50, border=5)
+        img, bbox2 = cvzone.putTextRect(
+            img, mcq.choice2, [400, 250], 2, 2, offset=50, border=5)
+        img, bbox3 = cvzone.putTextRect(
+            img, mcq.choice3, [100, 400], 2, 2, offset=50, border=5)
+        img, bbox4 = cvzone.putTextRect(
+            img, mcq.choice4, [400, 400], 2, 2, offset=50, border=5)
 
         if hands:
             lmList = hands[0]['lmList']
             cursor = lmList[8]
-            length, _, img = detector.findDistance(lmList[8][0:2], lmList[12][0:2], img)
+            length, _, img = detector.findDistance(
+                lmList[8][0:2], lmList[12][0:2], img)
+            print(length)
 
             if length < 35:
                 mcq.update(cursor, [bbox1, bbox2, bbox3, bbox4])
@@ -77,24 +98,30 @@ def video_frame_callback(frame):
     else:
         score = sum(1 for mcq in mcqList if mcq.answer == mcq.userAns)
         score = round((score / qTotal) * 100, 2)
-        img, _ = cvzone.putTextRect(img, "Quiz Completed", [250, 300], 2, 2, offset=50, border=5)
-        img, _ = cvzone.putTextRect(img, f'Your Score: {score}%', [700, 300], 2, 2, offset=50, border=5)
+        img, _ = cvzone.putTextRect(img, "Quiz Completed", [
+                                    250, 300], 2, 2, offset=50, border=5)
+        img, _ = cvzone.putTextRect(img, f'Your Score: {score}%', [
+                                    700, 300], 2, 2, offset=50, border=5)
 
     # Draw progress bar
     barValue = 150 + (950 // qTotal) * qNo
     cv2.rectangle(img, (150, 600), (barValue, 650), (0, 255, 0), cv2.FILLED)
     cv2.rectangle(img, (150, 600), (1100, 650), (255, 0, 255), 5)
-    img, _ = cvzone.putTextRect(img, f'{round((qNo / qTotal) * 100)}%', [1130, 635], 2, 2, offset=16)
+    img, _ = cvzone.putTextRect(
+        img, f'{round((qNo / qTotal) * 100)}%', [1130, 635], 2, 2, offset=16)
 
-    return av.VideoFrame.from_ndarray(img, format="bgr24")  # Convert back to VideoFrame
+    # Convert the frame from BGR to RGB for Streamlit
+    img_rgb = cv2.cvtColor(img, cv2.COLOR_BGR2RGB)
 
-# Start webcam stream
-webrtc_streamer(
-    key="quiz-stream",
-    video_frame_callback=video_frame_callback,
-    media_stream_constraints={"video": True, "audio": False},
-)
+    # Display the webcam feed in the Streamlit app
+    frame_placeholder.image(img_rgb, channels="RGB")
 
-# Stop quiz button
-if st.button("Stop Quiz"):
-    st.write("Quiz Stopped!")
+    # Break condition
+    if stop_button_pressed:
+        break
+
+# Release resources
+cap.release()
+cv2.destroyAllWindows()
+
+st.write("Quiz Stopped!")
