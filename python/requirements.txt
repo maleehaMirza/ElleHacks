@@ -6,3 +6,4 @@ opencv-python
 cvzone
 mediapipe
 streamlit-webrtc
+libgl1-mesa-glx
